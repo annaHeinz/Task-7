@@ -1,6 +1,5 @@
 package ru.itmentor.spring.boot_security.demo.service;
 
-package com.example.crudboot.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +31,6 @@ public class UserService {
         return userRepository.findById(id).orElse(null);}
 
     public void updateUser(User user){
-//       for (int i = 0; i < listUsers.size(); i++) {
-//           if (listUsers.get(i).getId().equals(user.getId())) {
-//               listUsers.set(i, user);
-//               break;
-//           }
-//       }
         userRepository.save(user);
     }
 }
