@@ -17,20 +17,30 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    @Transactional
-    public List<User> getAllUsers(){
-        return  userRepository.findAll();}
-    public void saveUser(User user){
-        log.info("Saving new {}",user);
-        userRepository.save(user);}
-    public void removeById(Long id){
-        userRepository.deleteById(id);}
-    public User getUserById(Long id){
-        return userRepository.findById(id).orElse(null);}
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    public void updateUser(User user){
-        userRepository.save(user);
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User updateUser(Long id, User userDetails) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setUsername(userDetails.getUsername());
+        user.setPassword(userDetails.getPassword());
+        user.setRoles(userDetails.getRoles());
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
