@@ -13,10 +13,7 @@ import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.repository.RoleRepository;
 import ru.itmentor.spring.boot_security.demo.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -49,7 +46,7 @@ public class UserService {
     }
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException("User not found with id: " + username));
+                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + username));
     }
     public void createAdminUser() {
         // Создание и сохранение роли
@@ -69,7 +66,7 @@ public class UserService {
         User user = new User();
 
         user.setUsername("Anna");
-        user.setPassword("$2a$12$IRBnYxAwcxv1Z9KfzD5FCuIzHgddm2t.Gg4faNzecn0sO3Fe9/Xku");
+        user.setPassword("123");
         user.setRoles(roles);
 
         // Сохранение пользователя в базе данных
