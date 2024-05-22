@@ -14,11 +14,16 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name="username")
     private String username;
+    @Column(name = "salary")
+    private int salary;
+    @Column(name="password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
