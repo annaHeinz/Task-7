@@ -2,6 +2,7 @@ package ru.itmentor.spring.boot_security.demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +20,20 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "surname")
+    private String surname;
+    @Getter
     @Column(name="username")
     private String username;
+    @Getter
     @Column(name = "salary")
     private int salary;
+    @Getter
+    @Column(name="department")
+    private String department;
+    @Getter
     @Column(name="password")
     private String password;
 
@@ -34,6 +45,14 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
+    public User(String name, String surname, String department, int salary, String username, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+        this.salary = salary;
+        this.username = username;
+        this.password = password;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -56,4 +75,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
